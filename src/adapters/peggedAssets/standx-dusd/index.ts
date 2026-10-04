@@ -3,6 +3,17 @@ import { sumSingleBalance } from "../helper/generalUtil";
 import { getApi, solanaMintedOrBridged } from "../helper/getSupply";
 import { Balances, PeggedIssuanceAdapter } from "../peggedAsset.type";
 
+/**
+ * DUSD token addresses.
+ *
+ * BNB Chain ERC-20 contract. `decimals` is read on-chain rather than hardcoded
+ * so that a future decimals change cannot silently corrupt the reported supply.
+ */
+const DUSD_BSC = "0xaf44A1E76F56eE12ADBB7ba8acD3CbD474888122";
+
+/** DUSD SPL mint on Solana. */
+const DUSD_SOLANA = "DUSDt4AeLZHWYmcXnVGYdgAzjtzU5mXUVnTMdnSzAttM";
+
 function chainMinted(chain: string, address: string) {
   return async function (_api: ChainApi) {
     const api = await getApi(chain, _api)
@@ -20,11 +31,11 @@ function chainMinted(chain: string, address: string) {
 const adapter: PeggedIssuanceAdapter = {
   solana: {
     minted: solanaMintedOrBridged([
-      "DUSDt4AeLZHWYmcXnVGYdgAzjtzU5mXUVnTMdnSzAttM",
+      DUSD_SOLANA,
     ]),
   },
   bsc: {
-    minted: chainMinted("bsc", "0xaf44A1E76F56eE12ADBB7ba8acD3CbD474888122"),
+    minted: chainMinted("bsc", DUSD_BSC),
   },
 };
 

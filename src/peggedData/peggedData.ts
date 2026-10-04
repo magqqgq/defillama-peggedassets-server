@@ -5046,4 +5046,36 @@ export default [
     twitter: "https://x.com/felixprotocol",
     wiki: "https://usefelix.gitbook.io/felix-docs"
   },
+  {
+    // StandX DUSD. This entry is what activates the `standx-dusd` adapter
+    // registered in src/adapters/peggedAssets/index.ts: the adapter lookup
+    // (src/peggedAssets/utils/importAdapter.ts) resolves adapters by `gecko_id`,
+    // so without a matching record here the adapter would never be invoked and
+    // DUSD supply would never be stored.
+    id: "252",
+    name: "StandX DUSD",
+    // BNB Chain is the primary contract; the Solana mint is declared in the adapter.
+    address: "0xaf44A1E76F56eE12ADBB7ba8acD3CbD474888122",
+    symbol: "DUSD",
+    url: "https://standx.com",
+    description:
+      "DUSD is a yield-bearing stablecoin issued by StandX. It is pegged to the US dollar and is distributed across BNB Chain and Solana.",
+    mintRedeemDescription:
+      "DUSD is minted and redeemed through the StandX Highway protocol on each supported chain.",
+    onCoinGecko: "false",
+    gecko_id: "standx-dusd", // must match the key in the adapters registry
+    cmcId: null,
+    pegType: "peggedUSD", // must match the balance key returned by the adapter
+    pegMechanism: "crypto-backed",
+    priceSource: "defillama",
+    // Public third-party audit reports, mirrored in the stand_audit repository.
+    auditLinks: [
+      "https://github.com/standx-labs/stand_audit/blob/main/RigSec_StandX_DUSD_EVM_Audit.pdf",
+      "https://github.com/standx-labs/stand_audit/blob/main/RigSec_StandX_DUSD_Solana_Audit.pdf",
+      "https://github.com/standx-labs/stand_audit/blob/main/WatchPug_StandX_DUSD_EVM_Audit.pdf",
+      "https://github.com/standx-labs/stand_audit/blob/main/WatchPug_StandX_DUSD_Solana_Audit.pdf",
+    ],
+    twitter: "https://x.com/standx_labs",
+    wiki: "https://standx.com"
+  },
 ] as PeggedAsset[];
